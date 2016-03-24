@@ -1,0 +1,8 @@
+{
+    "name": "flyerApp-backend",
+    "dependencies": {
+        "express": "*",
+        "request": "*",
+        "underscore": "*"
+    }
+}
