@@ -55,6 +55,16 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('ShopsCtrl', function($scope) {
+.controller('ShopsCtrl', function($scope, $http, $ionicLoading) {
+    $scope.stores = [ ];
     
+    $scope.load = function() {
+        $ionicLoading.show();
+        $http.get('http://localhost:8080/stores').then(function (res) {
+            $scope.stores = res.data;
+            $ionicLoading.hide();
+        }, function (err) {
+            console.log(err);
+        });
+    };
 });

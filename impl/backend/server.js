@@ -1,7 +1,10 @@
 var express = require('express');
 var request = require('request');
 var _ = require('underscore');
+var cors = require('cors');
+
 var app = express();
+app.use(cors());
 
 var PORT = 8080;
 var CYPHER_QUERY_URL = "http://localhost:7474/db/data/transaction/commit";
@@ -38,6 +41,12 @@ app.get('/stores', function (req, res) {
         }));
     });
 });
+
+app.all('/stores', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
 
 app.listen(PORT, function () {
     console.log("Started server on " + PORT); 

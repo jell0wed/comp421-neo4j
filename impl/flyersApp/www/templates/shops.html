@@ -1,31 +1,16 @@
 <ion-view view-title="Shops">
-<ion-content>
+<ion-content ng-init="load()">
     <div class="list">
         <div class="item item-divider">Grocery Stores</div>
         
-        <a class="item item-thumbnail-left" href="#">
+        <a class="item item-thumbnail-left" href="#" ng-repeat="store in stores">
             <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
-            <h2>Métro Avenue du Parc</h2>
+            <h2>{{ store.StoreName }}</h2>
             <ul>
-                <li><p>5 flyers available</p></li>
-                <li><p><strong>560</strong> products available</p></li>
+                <li><p>{{ store.Address1 }}, {{ store.PCZip }}, {{ store.City }}</p></li>
+                <li><p>{{ store.Phone }}</p></li>
             </ul>
-        </a>
-        <a class="item item-thumbnail-left" href="#">
-            <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
-            <h2>Métro Bigras</h2>
-            <ul>
-                <li><p>5 flyers available</p></li>
-                <li><p><strong>560</strong> products available</p></li>
-            </ul>
-        </a>
-        <a class="item item-thumbnail-left" href="#">
-            <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
-            <h2>Métro Plus De la Montagne</h2>
-            <ul>
-                <li><p>5 flyers available</p></li>
-                <li><p><strong>560</strong> products available</p></li>
-            </ul>
+            <span class="item-note">{{ store.Distance }} km.</span>
         </a>
     </div>
 </ion-content>
