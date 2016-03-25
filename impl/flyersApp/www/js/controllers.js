@@ -65,6 +65,11 @@ angular.module('starter.controllers', [])
             $ionicLoading.hide();
         }, function (err) {
             console.log(err);
+            $ionicLoading.hide();
         });
     };
+})
+
+.controller('PublicationsByShopCtrl', function($scope, $stateParams) {
+    console.log($stateParams);
 });

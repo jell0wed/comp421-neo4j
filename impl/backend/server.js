@@ -42,7 +42,23 @@ app.get('/stores', function (req, res) {
     });
 });
 
-app.all('/stores', function(req, res, next) {
+app.get('/stores/:id/publications', function (req, res) {
+    cypherQuery("MATCH (s:Store)-[:PUBLISHED]-(publication) WHERE s.StoreId = {sid} RETURN publication", { sid: req.params.id }, function(err, cres) {
+        if(cres.errors.length > 0) {
+            res.json(reportError("cypher", cres.errors));
+        }    
+        
+        res.json(_.map(cres.results[0].data, function(x) {
+            return x.row[0];    
+        }));
+    });
+});
+
+app.get('/stores/:id/products', function (req, res) {
+     
+});
+
+app.all('/', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();

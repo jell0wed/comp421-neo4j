@@ -3,7 +3,7 @@
     <div class="list">
         <div class="item item-divider">Grocery Stores</div>
         
-        <a class="item item-thumbnail-left" href="#" ng-repeat="store in stores">
+        <a class="item item-thumbnail-left" href="#/app/shops/publications/{{ store.StoreId }}" ng-repeat="store in stores">
             <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
             <h2>{{ store.StoreName }}</h2>
             <ul>
