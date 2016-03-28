@@ -1,9 +1,17 @@
-<ion-view view-title="Shops">
+<ion-view view-title="Products">
 <ion-content ng-init="load()">
     <div class="list">
-        <div class="item item-divider">Products</div>
+        <div class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" ng-model="search" placeholder="Search">
+            </label>
+            <button class="button button-clear" ng-click="search = ''">
+                Cancel
+            </button>
+        </div>
         
-        <a class="item item-thumbnail-left" href="#/app/publication/{{ pub.PubId }}" ng-repeat="prod in products">
+        <a class="item item-thumbnail-left" href="#/app/publication/{{ pub.PubId }}" ng-repeat="prod in (search.length <= 3 ? products : (loadedProducts | filter:search)) track by $index">
             <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
             <h2>{{ prod.ProductTitle  }}</h2>
             <ul>
@@ -12,6 +20,7 @@
             </ul>
             <span class="badge badge-assertive">{{ prod.PriceAsNumber | currency : '$' : 2 }}</span>
         </a>
+        <ion-infinite-scroll on-infinite="addItems()"></ion-infinite-scroll>
     </div>
 </ion-content>
 </ion-view>

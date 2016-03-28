@@ -96,15 +96,35 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PublicationByIdCtrl', function($scope, $stateParams, $ionicLoading, $http) {
-    $scope.products = undefined;
+    $scope.loadedProducts = [];
+    $scope.products = [];
+    $scope.search = "";
+    var startIndex = 0;
     
     $scope.load = function() {
         $ionicLoading.show();
         $http.get('http://localhost:8080/publication/'+ $stateParams.pubid +'/products').then(function (res) {
-            $scope.products = res.data;
+            $scope.loadedProducts = res.data;
             $ionicLoading.hide();
+            
+            $scope.addItems();
         }, function (err) {
             console.log(err);
         });
+    };
+    
+    $scope.addItems = function ()  {
+        if(startIndex >= $scope.loadedProducts.length) {
+            return;
+        }
+        
+        for(var i = startIndex; i < startIndex + 20; i++) {
+            if(i < $scope.loadedProducts.length) {
+                $scope.products.push($scope.loadedProducts[i]);
+            }
+        }
+        
+        startIndex += 20;
+        $scope.$broadcast('scroll.infiniteScrollComplete');
     };
 });
