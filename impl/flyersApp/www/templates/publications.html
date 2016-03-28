@@ -1,9 +1,16 @@
 <ion-view view-title="Shops">
-<ion-content ng-init="">
+<ion-content ng-init="load()">
     <div class="list">
-        <div class="item item-divider">Grocery</div>
+        <div class="item item-divider">Publications</div>
         
-        sdsdssadasdas
+        <a class="item item-thumbnail-left" href="#/app/publication/{{ pub.PubId }}" ng-repeat="pub in publications">
+            <img src="{{ pub.Thumbnail }}">
+            <h2>{{ pub.Title }}</h2>
+            <ul>
+                <li><p>{{ pub.EffectiveDate }}</p></li>
+                <li><p>{{ store.Phone }}</p></li>
+            </ul>
+        </a>
     </div>
 </ion-content>
 </ion-view>

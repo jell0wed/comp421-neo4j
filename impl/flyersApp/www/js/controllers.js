@@ -1,4 +1,15 @@
 angular.module('starter.controllers', [])
+.filter('htmlToPlainText', function() {
+    return function (text) {
+        return  text ? String(text).replace(/<[^>]+>/gm, '') : '';
+    }
+})
+.filter('split', function() {
+        return function(input, splitChar) {
+            // do some bounds checking here to ensure it has that index
+            return input.split(splitChar);
+        }
+    })
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -70,6 +81,30 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('PublicationsByShopCtrl', function($scope, $stateParams) {
-    console.log($stateParams);
+.controller('PublicationsByShopCtrl', function($scope, $stateParams, $ionicLoading, $http) {
+    $scope.publications = [ ];
+    
+    $scope.load = function() {
+        $ionicLoading.show();
+        $http.get('http://localhost:8080/stores/' + $stateParams.storeid + '/publications').then(function (res) {
+            $scope.publications = res.data;
+            $ionicLoading.hide();
+        }, function (err) {
+            console.log(err);
+        });
+    };
+})
+
+.controller('PublicationByIdCtrl', function($scope, $stateParams, $ionicLoading, $http) {
+    $scope.products = undefined;
+    
+    $scope.load = function() {
+        $ionicLoading.show();
+        $http.get('http://localhost:8080/publication/'+ $stateParams.pubid +'/products').then(function (res) {
+            $scope.products = res.data;
+            $ionicLoading.hide();
+        }, function (err) {
+            console.log(err);
+        });
+    };
 });

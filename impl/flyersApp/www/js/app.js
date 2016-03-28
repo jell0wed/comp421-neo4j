@@ -57,6 +57,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             controller: 'PublicationsByShopCtrl'
         }
      }
+    })
+    .state('app.publication', {
+     url: '/publication/:pubid',
+     views: {
+        'menuContent': {
+            templateUrl: 'templates/show_publication.html',
+            controller: 'PublicationByIdCtrl'
+        }
+     }
     });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/shops');

@@ -1,0 +1,17 @@
+<ion-view view-title="Shops">
+<ion-content ng-init="load()">
+    <div class="list">
+        <div class="item item-divider">Products</div>
+        
+        <a class="item item-thumbnail-left" href="#/app/publication/{{ pub.PubId }}" ng-repeat="prod in products">
+            <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
+            <h2>{{ prod.ProductTitle  }}</h2>
+            <ul>
+                <li><p><strong>{{ prod.BrandName }}</strong> - {{ prod.Description | htmlToPlainText }}</p></li>
+                <li><p><span ng-repeat="cat in (prod.CategoryName | split:',')"><button class="button button-small button-outline button-assertive">{{ cat }}</button>&nbsp;&nbsp;</span></p></li>
+            </ul>
+            <span class="badge badge-assertive">{{ prod.PriceAsNumber | currency : '$' : 2 }}</span>
+        </a>
+    </div>
+</ion-content>
+</ion-view>

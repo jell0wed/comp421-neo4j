@@ -54,6 +54,18 @@ app.get('/stores/:id/publications', function (req, res) {
     });
 });
 
+app.get('/publication/:id/products', function (req, res) {
+    cypherQuery("MATCH (pub:Publication)-[:CONTAINS]-(prod:Product) WHERE pub.PubId = {pid} RETURN prod", { pid: req.params.id }, function(err, cres) {
+        if(cres.errors.length > 0) {
+            res.json(reportError("cypher", cres.errors));
+        }
+        
+        res.json(_.map(cres.results[0].data, function(x) {
+            return x.row[0];    
+        }));
+    });    
+});
+
 app.get('/stores/:id/products', function (req, res) {
      
 });
