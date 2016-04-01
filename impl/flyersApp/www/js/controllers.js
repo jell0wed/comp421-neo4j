@@ -127,4 +127,7 @@ angular.module('starter.controllers', [])
         startIndex += 20;
         $scope.$broadcast('scroll.infiniteScrollComplete');
     };
+})
+.controller('ProductByIdCtrl', function($scope, $stateParams, $ionicLoading, $http) {
+        
 });

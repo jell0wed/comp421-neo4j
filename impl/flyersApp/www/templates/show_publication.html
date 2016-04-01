@@ -11,7 +11,7 @@
             </button>
         </div>
         
-        <a class="item item-thumbnail-left" href="#/app/publication/{{ pub.PubId }}" ng-repeat="prod in (search.length <= 3 ? products : (loadedProducts | filter:search)) track by $index">
+        <a class="item item-thumbnail-left" href="#/app/product/{{ prod.Id }}" ng-repeat="prod in (search.length <= 3 ? products : (loadedProducts | filter:search)) track by $index">
             <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
             <h2>{{ prod.ProductTitle  }}</h2>
             <ul>
