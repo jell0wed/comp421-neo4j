@@ -6,6 +6,7 @@
   * focuses on the clarity of expression *what* to retrieve from a graph and now *how* to retrieve it
   * very expressive
 * relatively small but yet still very powerful
+* easily read and understood by *developers,* *db professionnals* and *business stakeholders*
 
 ### Basic Query Structure
 
@@ -14,9 +15,18 @@
 ##### MATCH clause
 
 - indicates the pattern which should be used to traverse the graph
+  - find data that matches a specific pattern
+  - specification by example
+
+
 
 
 - placeholders may be present to capture and use different information within the query
+- to find data for specific nodes and relationships in an existing dataset, we specify the property values explicitely:
+
+``` 
+MATCH (emil: Person {name:'Emil'})-[:KNOWS]->(ian:Person {name:'Ian'})
+```
 
 ##### WHERE clause
 
@@ -52,7 +62,7 @@ RETURN DISTINCT surfer
 
 * use of WHERE clause to enforce constraint or filter information
 
-#### Graph manipulation / Data retrieval
+#### Graph manipulation
 
 ##### CREATE
 
@@ -99,9 +109,26 @@ RETURN p,db
 
 
 
+#### Common pitfalls
 
+* Although very expressive, not sure a particular graph if fit for purpose
 
+* Easy to make mistakes if misused
 
+  ```
+  MATCH (:Person)-[:KNOWS]-()-[:KNOWS]->(:Person)
+  ```
+
+  - the `()` specifies any specific nodes that associated with 2 `KNOWS`relation; but they can be anything if no label specified, not necessarily `:Person`
+  - binds so naturally that sometimes queries might hide logic errors 
+    - (one might assume that only a :Person can be associted with 2 :KNOWS relationship), however one could add a totally different node with 2 :KNOWS relationship and it would still be matched by this query.
+
+| Cypher                                   | SQL                            | XQuery                                 |
+| ---------------------------------------- | ------------------------------ | -------------------------------------- |
+| MATCH (:Person)-[:KNOWS]-()-[:KNOWS]->(:Person) | SELECT  ...                    | //node/path/pattern                    |
+| WHERE cond = condval                     | WHERE cond = condval           | //node/path/patern[@attr='attr_value'] |
+| CREATE ...                               | INSERT INTO ...                | N/A                                    |
+| MATCH ... SET n = 1                      | UPDATE ... SET n = 1 WHERE ... | N/A                                    |
 
 
 
