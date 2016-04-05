@@ -4,7 +4,9 @@
         <div class="item item-divider">Grocery Stores</div>
         
         <a class="item item-thumbnail-left" href="#/app/shops/publications/{{ store.StoreId }}" ng-repeat="store in stores">
-            <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
+            <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png" ng-if="store.BannerCode == 'MTR'" />
+            <img src="http://www.aphpcr.qc.ca/2010/LeveesFonds/2012/LogoSuperC.jpg" ng-if="store.BannerCode == 'SUPRC'" />
+            
             <h2>{{ store.StoreName }}</h2>
             <ul>
                 <li><p>{{ store.Address1 }}, {{ store.PCZip }}, {{ store.City }}</p></li>

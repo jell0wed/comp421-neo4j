@@ -12,7 +12,7 @@
         </div>
         
         <a class="item item-thumbnail-left" href="#/app/product/{{ prod.Id }}" ng-repeat="prod in (search.length <= 3 ? products : (loadedProducts | filter:search)) track by $index">
-            <img src="http://macquebec.com/wp-content/uploads/2015/06/Mon-metro.png">
+            <img src="{{ prod.ProductThumbnailUrl }}">
             <h2>{{ prod.ProductTitle  }}</h2>
             <ul>
                 <li><p><strong>{{ prod.BrandName }}</strong> - {{ prod.Description | htmlToPlainText }}</p></li>

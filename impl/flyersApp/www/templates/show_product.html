@@ -1,7 +1,29 @@
 <ion-view view-title="Products">
 <ion-content ng-init="load()">
-    <div class="list">
-        sd
+
+<div class="list card">
+
+  <div class="item item-avatar">
+    <img src="{{ product.ProductThumbnailUrl }}">
+    <h2>{{ product.ProductTitle }}</h2>
+    <p><p><span ng-repeat="cat in (product.CategoryName | split:',')"><button class="button button-small button-outline button-assertive">{{ cat }}</button>&nbsp;&nbsp;</span></p></p>
+  </div>
+
+  <div class="item item-body">
+    <p>
+      {{ product.Description | htmlToPlainText }}
+    </p>
+    <a class="item item-icon-left assertive" href="#">
+        <i class="icon ion-ios-pricetag"></i>
+        <center>{{ product.PriceAsNumber | currency : '$' : 2}}</center>
+    </a>
+    <div class="button-bar">
+        <a class="button button-assertive"> <i class="icon ion-ios-telephone"></i></a>
+        <a class="button button-assertive"><i class="icon ion-location"></i></a>
+        <a class="button button-assertive"><i class="icon ion-at"></i></a>
     </div>
+  </div>
+
+</div>
 </ion-content>
 </ion-view>

@@ -66,6 +66,18 @@ app.get('/publication/:id/products', function (req, res) {
     });    
 });
 
+app.get('/product/:id', function (req, res) {
+    cypherQuery("MATCH (p:Product) WHERE p.Id = {pid} RETURN p", { pid: req.params.id }, function(err, cres) {
+        if(cres.errors.length > 0) {
+            res.json(reportError("cypher", cres.errors));
+        }
+        
+        res.json(_.map(cres.results[0].data, function(x) {
+            return x.row[0];    
+        }));
+    });    
+});
+
 app.get('/stores/:id/products', function (req, res) {
      
 });

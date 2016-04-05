@@ -129,5 +129,16 @@ angular.module('starter.controllers', [])
     };
 })
 .controller('ProductByIdCtrl', function($scope, $stateParams, $ionicLoading, $http) {
-        
+    $scope.product = undefined;
+    
+    $scope.load = function() {
+        $ionicLoading.show();
+        $http.get('http://localhost:8080/product/' + $stateParams.productid).then(function (res) {
+            $scope.product = res.data[0];
+            $ionicLoading.hide();
+            console.log($scope.product);
+        }, function (err) {
+            console.log(err);
+        });    
+    };
 });
