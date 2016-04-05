@@ -14,14 +14,19 @@
 
 ##### MATCH clause
 
+- how it really works is that you specify pattern that represent an example on how to traverse the graph
+
+
+
 - indicates the pattern which should be used to traverse the graph
-  - find data that matches a specific pattern
-  - specification by example
-
-
-
-
 - placeholders may be present to capture and use different information within the query
+  - use those variables throughout the query	
+
+
+
+
+
+
 - to find data for specific nodes and relationships in an existing dataset, we specify the property values explicitely:
 
 ``` 
@@ -107,7 +112,29 @@ MATCH (you {name:"You"}), (expert)-[:WORKED_WITH]->(db:Database {name:"Neo4j"}),
 RETURN p,db
 ```
 
+#### SQL vs Cypher
 
+```
+SELECT DISTINCT co_actor.name
+FROM person AS keanu
+  JOIN acted_in AS acted_in1 ON acted_in1.person_id = keanu.id
+  JOIN acted_in AS acted_in2 ON acted_in2.movie_id = acted_in1.movie_id
+  JOIN person AS co_actor
+    ON acted_in2.person_id = co_actor.id AND co_actor.id <> keanu.id
+WHERE keanu.name = 'Keanu Reeves';
+```
+
+vs 
+
+```
+MATCH (keanu:Person)-[:ACTED_IN]->(movie:Movie),
+(coActor:Person)-[:ACTED_IN]->(movie)
+WHERE keanu.name = 'Keanu Reeves'
+RETURN DISTINCT coActor.name;
+```
+
+* notice how more expressive the cypher query is
+* much more related on the application domain and not necessarily the technicalities involved in the SQL query
 
 #### Common pitfalls
 
